@@ -1,0 +1,344 @@
+<?php
+/**
+ * Single Property Template
+ */
+
+get_header();
+
+while (have_posts()) : the_post();
+    $property_id = get_the_ID();
+    $meta = hfe_get_property_meta($property_id);
+    $locations = wp_get_post_terms($property_id, 'property_location');
+    $property_types = wp_get_post_terms($property_id, 'property_type');
+?>
+
+<article id="property-<?php the_ID(); ?>" <?php post_class('hfe-single-property'); ?>>
+
+    <div class="hfe-property-header">
+        <div class="hfe-container">
+            <?php if (!empty($locations)) : ?>
+                <div class="hfe-property-location-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C5.24 0 3 2.24 3 5c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 7c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                    </svg>
+                    <?php echo esc_html($locations[0]->name); ?>
+                </div>
+            <?php endif; ?>
+
+            <h1 class="hfe-property-main-title"><?php the_title(); ?></h1>
+
+            <div class="hfe-property-meta-header">
+                <?php if (!empty($property_types)) : ?>
+                    <span class="hfe-property-type"><?php echo esc_html($property_types[0]->name); ?></span>
+                <?php endif; ?>
+                <span class="hfe-property-status-badge <?php echo esc_attr('hfe-status-' . $meta['status']); ?>">
+                    <?php echo $meta['status'] === 'rent' ? __('For Rent', 'hfe-properties') : __('For Sale', 'hfe-properties'); ?>
+                </span>
+            </div>
+
+            <?php if ($meta['price']) : ?>
+                <div class="hfe-property-main-price">
+                    <?php echo hfe_get_property_price($property_id); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div class="hfe-property-featured-image">
+        <?php if (has_post_thumbnail()) : ?>
+            <?php the_post_thumbnail('full'); ?>
+        <?php endif; ?>
+    </div>
+
+    <div class="hfe-container">
+        <div class="hfe-property-layout">
+            <div class="hfe-property-main-content">
+
+                <!-- Property Stats -->
+                <div class="hfe-property-stats">
+                    <?php if (!empty($locations)) : ?>
+                    <div class="hfe-quick-info-item">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 0C6.5 0 3.75 2.75 3.75 6.25c0 4.69 6.25 11.25 6.25 11.25s6.25-6.56 6.25-11.25C16.25 2.75 13.5 0 10 0zm0 8.75c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        <strong><?php _e('Location:', 'hfe-properties'); ?></strong>
+                        <?php echo esc_html($locations[0]->name); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($property_types)) : ?>
+                    <div class="hfe-quick-info-item">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M15 2.5L10 0 5 2.5 0 0v15l5 2.5 5-2.5 5 2.5 5-2.5V0l-5 2.5z"/>
+                        </svg>
+                        <strong><?php _e('Type:', 'hfe-properties'); ?></strong>
+                        <?php echo esc_html($property_types[0]->name); ?>
+                    </div>
+                <?php endif; ?>
+
+                <div class="hfe-quick-info-item">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.5 0h-15C1.12 0 0 1.12 0 2.5v15C0 18.88 1.12 20 2.5 20h15c1.38 0 2.5-1.12 2.5-2.5v-15C20 1.12 18.88 0 17.5 0zM7.5 15H5v-5h2.5v5zm7.5 0h-2.5v-7.5H12.5V15z"/>
+                    </svg>
+                    <strong><?php _e('Status:', 'hfe-properties'); ?></strong>
+                    <span class="hfe-status-badge-inline <?php echo esc_attr('hfe-status-' . $meta['status']); ?>">
+                        <?php echo $meta['status'] === 'rent' ? __('For Rent', 'hfe-properties') : __('For Sale', 'hfe-properties'); ?>
+                    </span>
+                </div>
+
+                <?php if ($meta['price']) : ?>
+                    <div class="hfe-quick-info-item hfe-price-highlight">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1.41 16.09V18h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V2h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+                        </svg>
+                        <strong><?php _e('Price:', 'hfe-properties'); ?></strong>
+                        <span class="hfe-price-large"><?php echo hfe_get_property_price($property_id); ?></span>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="hfe-container">
+        <div class="hfe-property-layout">
+            <div class="hfe-property-main-content">
+
+                <!-- Property Stats -->
+                <div class="hfe-property-stats">
+                    <?php if ($meta['size']) : ?>
+                        <div class="hfe-stat-item">
+                            <div class="hfe-stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>
+                                </svg>
+                            </div>
+                            <div class="hfe-stat-content">
+                                <span class="hfe-stat-value"><?php echo esc_html($meta['size']); ?> m²</span>
+                                <span class="hfe-stat-label"><?php _e('Total Area', 'hfe-properties'); ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($meta['bedrooms']) : ?>
+                        <div class="hfe-stat-item">
+                            <div class="hfe-stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M4 13h12v6H4v-6zm0-3V8c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v2h2c.55 0 1 .45 1 1v8c0 .55-.45 1-1 1H3c-.55 0-1-.45-1-1v-8c0-.55.45-1 1-1h1z"/>
+                                </svg>
+                            </div>
+                            <div class="hfe-stat-content">
+                                <span class="hfe-stat-value"><?php echo esc_html($meta['bedrooms']); ?></span>
+                                <span class="hfe-stat-label"><?php _e('Bedrooms', 'hfe-properties'); ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($meta['bathrooms']) : ?>
+                        <div class="hfe-stat-item">
+                            <div class="hfe-stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 10c0-3.86 3.14-7 7-7 .55 0 1 .45 1 1s-.45 1-1 1c-2.76 0-5 2.24-5 5H3zm18 7H3v3h18v-3zm0-3c.55 0 1-.45 1-1s-.45-1-1-1H3c-.55 0-1 .45-1 1s.45 1 1 1h18z"/>
+                                </svg>
+                            </div>
+                            <div class="hfe-stat-content">
+                                <span class="hfe-stat-value"><?php echo esc_html($meta['bathrooms']); ?></span>
+                                <span class="hfe-stat-label"><?php _e('Bathrooms', 'hfe-properties'); ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($meta['floor']) : ?>
+                        <div class="hfe-stat-item">
+                            <div class="hfe-stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.2l7.5 3.75L12 11.7 4.5 7.95 12 4.2zM4 9.47l7 3.5v7.03l-7-3.5V9.47zm16 7.03l-7 3.5V12.97l7-3.5v7.03z"/>
+                                </svg>
+                            </div>
+                            <div class="hfe-stat-content">
+                                <span class="hfe-stat-value"><?php echo esc_html($meta['floor']); ?></span>
+                                <span class="hfe-stat-label"><?php _e('Floor', 'hfe-properties'); ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($meta['parking']) : ?>
+                        <div class="hfe-stat-item">
+                            <div class="hfe-stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M13 3H6v18h4v-6h3c3.31 0 6-2.69 6-6s-2.69-6-6-6zm.2 8H10V7h3.2c1.1 0 2 .9 2 2s-.9 2-2 2z"/>
+                                </svg>
+                            </div>
+                            <div class="hfe-stat-content">
+                                <span class="hfe-stat-value"><?php echo esc_html($meta['parking']); ?></span>
+                                <span class="hfe-stat-label"><?php _e('Parking', 'hfe-properties'); ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($meta['year_built']) : ?>
+                        <div class="hfe-stat-item">
+                            <div class="hfe-stat-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/>
+                                </svg>
+                            </div>
+                            <div class="hfe-stat-content">
+                                <span class="hfe-stat-value"><?php echo esc_html($meta['year_built']); ?></span>
+                                <span class="hfe-stat-label"><?php _e('Year Built', 'hfe-properties'); ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Description -->
+                <div class="hfe-property-description">
+                    <h2><?php _e('Property Description', 'hfe-properties'); ?></h2>
+                    <?php the_content(); ?>
+                </div>
+
+                <!-- Features -->
+                <?php hfe_property_features($property_id); ?>
+
+                <!-- Gallery -->
+                <?php hfe_property_gallery($property_id); ?>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div class="hfe-property-sidebar">
+                <?php hfe_property_contact_form($property_id); ?>
+
+                <!-- Additional Info -->
+                <div class="hfe-property-additional-info">
+                    <h3><?php _e('Property Details', 'hfe-properties'); ?></h3>
+                    <ul class="hfe-info-list">
+                        <li>
+                            <span class="hfe-info-label"><?php _e('Property ID:', 'hfe-properties'); ?></span>
+                            <span class="hfe-info-value"><?php echo esc_html($property_id); ?></span>
+                        </li>
+                        <?php if ($meta['status']) : ?>
+                            <li>
+                                <span class="hfe-info-label"><?php _e('Status:', 'hfe-properties'); ?></span>
+                                <span class="hfe-info-value">
+                                    <?php echo $meta['status'] === 'rent' ? __('For Rent', 'hfe-properties') : __('For Sale', 'hfe-properties'); ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (!empty($property_types)) : ?>
+                            <li>
+                                <span class="hfe-info-label"><?php _e('Type:', 'hfe-properties'); ?></span>
+                                <span class="hfe-info-value"><?php echo esc_html($property_types[0]->name); ?></span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($meta['availability']) : ?>
+                            <li>
+                                <span class="hfe-info-label"><?php _e('Availability:', 'hfe-properties'); ?></span>
+                                <span class="hfe-info-value"><?php echo esc_html(ucfirst($meta['availability'])); ?></span>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+
+                <!-- Share -->
+                <div class="hfe-property-share">
+                    <h3><?php _e('Share this property', 'hfe-properties'); ?></h3>
+                    <div class="hfe-share-buttons">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" target="_blank" class="hfe-share-button hfe-share-facebook">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M18 0H2C.9 0 0 .9 0 2v16c0 1.1.9 2 2 2h8v-7H8V9h2V7c0-2.2 1.8-4 4-4h2v2h-2c-.55 0-1 .45-1 1v2h3l-.5 2H13v7h5c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode(get_permalink()); ?>&text=<?php echo urlencode(get_the_title()); ?>" target="_blank" class="hfe-share-button hfe-share-twitter">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M20 3.8c-.7.3-1.5.5-2.4.6.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-.7-.8-1.8-1.3-3-1.3-2.3 0-4.1 1.8-4.1 4.1 0 .3 0 .6.1.9C6.4 6.7 3.4 5.1 1.4 2.6c-.3.6-.5 1.2-.5 1.9 0 1.4.7 2.7 1.8 3.4-.7 0-1.3-.2-1.8-.5v.1c0 2 1.4 3.6 3.3 4-.3.1-.7.1-1.1.1-.3 0-.5 0-.8-.1.5 1.6 2 2.8 3.8 2.8-1.4 1.1-3.2 1.8-5.1 1.8-.3 0-.7 0-1-.1 1.8 1.2 4 1.8 6.3 1.8 7.5 0 11.7-6.2 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.1z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(get_permalink()); ?>" target="_blank" class="hfe-share-button hfe-share-linkedin">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M19 0H1C.4 0 0 .4 0 1v18c0 .6.4 1 1 1h18c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1zM6 17H3V8h3v9zM4.5 6.3c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM17 17h-3v-4.4c0-1.1 0-2.5-1.5-2.5s-1.7 1.2-1.7 2.4V17H8V8h2.8v1.2h.1c.4-.7 1.3-1.5 2.7-1.5 2.9 0 3.4 1.9 3.4 4.4V17z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Properties -->
+        <?php
+        $related_args = array(
+            'post_type' => 'hfe_property',
+            'posts_per_page' => 3,
+            'post__not_in' => array($property_id),
+            'meta_query' => array(
+                array(
+                    'key' => '_hfe_status',
+                    'value' => $meta['status'],
+                    'compare' => '='
+                )
+            ),
+        );
+
+        if (!empty($locations)) {
+            $related_args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'property_location',
+                    'field' => 'term_id',
+                    'terms' => $locations[0]->term_id,
+                ),
+            );
+        }
+
+        $related_query = new WP_Query($related_args);
+
+        if ($related_query->have_posts()) :
+        ?>
+            <div class="hfe-related-properties">
+                <h2><?php _e('Similar Properties', 'hfe-properties'); ?></h2>
+                <div class="hfe-related-properties-grid">
+                    <?php while ($related_query->have_posts()) : $related_query->the_post(); ?>
+                        <?php
+                        $rel_id = get_the_ID();
+                        $rel_meta = hfe_get_property_meta($rel_id);
+                        $rel_locations = wp_get_post_terms($rel_id, 'property_location');
+                        ?>
+                        <div class="hfe-property-card">
+                            <a href="<?php the_permalink(); ?>" class="hfe-property-image">
+                                <?php the_post_thumbnail('medium_large'); ?>
+                            </a>
+                            <div class="hfe-property-content">
+                                <h3 class="hfe-property-title">
+                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                </h3>
+                                <?php if ($rel_meta['price']) : ?>
+                                    <div class="hfe-property-price">
+                                        <?php echo hfe_get_property_price($rel_id); ?>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="hfe-property-meta">
+                                    <?php if ($rel_meta['bedrooms']) : ?>
+                                        <span><?php echo esc_html($rel_meta['bedrooms']); ?> <?php _e('Beds', 'hfe-properties'); ?></span>
+                                    <?php endif; ?>
+                                    <?php if ($rel_meta['bathrooms']) : ?>
+                                        <span><?php echo esc_html($rel_meta['bathrooms']); ?> <?php _e('Baths', 'hfe-properties'); ?></span>
+                                    <?php endif; ?>
+                                    <?php if ($rel_meta['size']) : ?>
+                                        <span><?php echo esc_html($rel_meta['size']); ?> m²</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+            </div>
+        <?php
+            wp_reset_postdata();
+        endif;
+        ?>
+    </div>
+
+</article>
+
+<?php
+endwhile;
+
+get_footer();

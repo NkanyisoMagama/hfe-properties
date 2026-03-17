@@ -1,0 +1,96 @@
+/**
+ * HFE Properties - Admin Styles
+ */
+
+/* Gallery Meta Box */
+.hfe-gallery-container {
+    padding: 10px 0;
+}
+
+.hfe-gallery-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.hfe-gallery-image {
+    position: relative;
+    padding-bottom: 100%;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: move;
+}
+
+.hfe-gallery-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hfe-remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hfe-gallery-image:hover .hfe-remove-image {
+    opacity: 1;
+}
+
+.hfe-remove-image:hover {
+    background: rgba(255, 0, 0, 1);
+}
+
+#hfe-add-gallery-images {
+    margin-top: 10px;
+}
+
+/* Admin Form Table Improvements */
+.form-table th {
+    width: 200px;
+}
+
+.form-table input[type="number"],
+.form-table input[type="text"],
+.form-table select {
+    font-size: 14px;
+}
+
+.form-table .description {
+    font-style: italic;
+    color: #666;
+}
+
+/* Property Status Indicator */
+#hfe_status,
+#hfe_availability {
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+/* Sortable Gallery Cursor */
+.hfe-gallery-images.ui-sortable .hfe-gallery-image {
+    cursor: move;
+}
+
+.hfe-gallery-images.ui-sortable .hfe-gallery-image:hover {
+    border-color: #0073aa;
+}

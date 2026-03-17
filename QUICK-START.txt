@@ -1,0 +1,149 @@
+╔════════════════════════════════════════════════════════════════╗
+║          HFE PROPERTIES PLUGIN - QUICK START GUIDE            ║
+║                    Version 1.0.0                              ║
+╚════════════════════════════════════════════════════════════════╝
+
+🚀 INSTALLATION (2 Minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Upload 'hfe-properties' folder to /wp-content/plugins/
+2. Activate via WordPress Admin > Plugins
+3. 🎉 AUTOMATIC SETUP HAPPENS!
+   - 3 pages created (Sale, Rent, All)
+   - Property types created (Apartment, House, etc.)
+   - Locations created (Amsterdam, Rotterdam, etc.)
+4. Click links in success notice to view pages
+
+✅ AUTO-SETUP COMPLETE! (No Manual Work Needed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Pages Created Automatically:
+  • Properties for Sale (/properties-for-sale/)
+  • Properties for Rent (/properties-for-rent/)
+  • All Properties (/all-properties/)
+
+✓ Property Types Created:
+  • Apartment, House, Studio, Villa, Penthouse
+
+✓ Locations Created:
+  • Amsterdam, Rotterdam, The Hague, Utrecht, Eindhoven, etc.
+
+📋 YOUR CHECKLIST (Simple!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ Add First Property
+  → Go to: Properties > Add New
+  → Fill in: Title, Price, Size, Bedrooms, Bathrooms
+  → Upload: Featured Image + Gallery Images
+  → Select: Property Type & Location
+  → Publish!
+
+□ Add Pages to Menu
+  → Appearance > Menus
+  → Add auto-created pages to your menu
+  → Save
+
+🎨 SHORTCODES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CAROUSEL (Beautiful Slider):
+[hfe_properties_carousel status="sale" limit="6"]
+
+GRID (3 Columns):
+[hfe_properties_grid status="sale" columns="3" limit="9"]
+
+RENTAL PROPERTIES:
+[hfe_properties_carousel status="rent" limit="8"]
+
+ALL PROPERTIES:
+[hfe_properties_carousel status="all" limit="10"]
+
+LOCATION SPECIFIC (Amsterdam):
+[hfe_properties_grid location="amsterdam" columns="3"]
+
+📋 PROPERTY FIELDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Required:
+• Title
+• Featured Image
+• Status (Sale/Rent)
+
+Recommended:
+• Price
+• Size (m²)
+• Bedrooms
+• Bathrooms
+• Location
+• Property Type
+
+Optional:
+• Floor
+• Terrace/Balcony count
+• Parking spaces
+• Year Built
+• Gallery (multiple images)
+• Features list
+
+🎯 WHAT YOU GET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Beautiful property carousel (like reference site)
+✓ Detailed property pages
+✓ Property cards with all info
+✓ Image galleries with lightbox
+✓ Responsive design (mobile-friendly)
+✓ Easy-to-use admin interface
+✓ Drag & drop gallery management
+✓ Search & filter ready
+✓ Social sharing buttons
+✓ Related properties display
+
+📱 RESPONSIVE BREAKPOINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Mobile   (<768px):  1 column
+Tablet   (768-1024): 2 columns
+Desktop  (>1024px):  3 columns
+
+🎨 CUSTOMIZATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Change Brand Color:
+Add to your theme's CSS:
+
+:root {
+    --hfe-primary-color: #YOUR_COLOR;
+}
+
+Default color: #CD8C66 (Homes for Expats brand)
+
+🔧 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Properties don't show?
+→ Check properties are Published
+→ Verify shortcode status matches (sale/rent/all)
+
+Carousel not sliding?
+→ Clear browser cache
+→ Check browser console for errors
+
+Images missing?
+→ Set featured image for each property
+→ Check uploads folder permissions
+
+📚 DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+README.md         - Full documentation
+INSTALLATION.md   - Detailed installation guide
+This file         - Quick reference
+
+📧 SUPPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Email: info@homesforexpats.nl
+Web: https://homesforexpats.nl
+
+Built with ❤️ for Homes for Expats
