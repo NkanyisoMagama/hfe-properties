@@ -315,8 +315,8 @@ Edit `assets/css/hfe-properties.css` in the `.hfe-property-card` section.
 ## Support
 
 For issues or questions:
-- Email: info@homesforexpats.nl
-- Website: https://homesforexpats.nl
+- Email: nkanyisoweb@gmail.com
+
 
 ## Changelog
 
@@ -331,7 +331,7 @@ For issues or questions:
 
 ## Credits
 
-Developed for **Homes for Expats**
+
 Built with WordPress, Swiper.js, and ❤️
 
 ## License
